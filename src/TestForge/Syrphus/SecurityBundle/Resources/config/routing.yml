@@ -1,0 +1,27 @@
+login:
+    path: /login
+    defaults: { _controller: TestForgeSyrphusSecurityBundle:Security:login }
+
+logout:
+    path: /logout
+    defaults: { _controller: TestForgeSyrphusSecurityBundle:Security:logout }
+
+register:
+    path: /register
+    defaults: { _controller: TestForgeSyrphusSecurityBundle:Security:register }
+
+user_list:
+    path: /user/list
+    defaults: { _controller: TestForgeSyrphusSecurityBundle:User:list }
+
+user_view:
+    path: /user/view/{id}
+    defaults: { _controller: TestForgeSyrphusSecurityBundle:User:view }
+    requirements:
+        id: '\d+'
+
+user_view:
+    path: /user/edit/{id}
+    defaults: { _controller: TestForgeSyrphusSecurityBundle:User:edit }
+    requirements:
+        id: '\d+'

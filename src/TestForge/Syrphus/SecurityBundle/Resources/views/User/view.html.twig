@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}User - {{ user.username }}{% endblock %}
+
+{% block body %}
+    <table>
+        <tbody>
+        <tr>
+            <td>User ID:</td>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td>{{ user.username }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a href="{{ path('user_list') }}">User list</a>
+    </p>
+{% endblock %}

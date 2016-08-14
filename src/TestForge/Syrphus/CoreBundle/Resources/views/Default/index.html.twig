@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Hello World!</h1>
+
+    <p>
+        <a href="{{ path('user_list') }}">View</a>
+    </p>
+    <p>
+        <a href="{{ path('logout') }}">Logout</a>
+    </p>
+{% endblock %}

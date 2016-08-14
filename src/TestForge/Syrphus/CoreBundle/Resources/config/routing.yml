@@ -1,0 +1,3 @@
+test_forge_syrphus_core_homepage:
+    path:     /
+    defaults: { _controller: TestForgeSyrphusCoreBundle:Default:index }

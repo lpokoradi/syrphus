@@ -1,0 +1,13 @@
+test_forge_syrphus_core:
+    resource: "@TestForgeSyrphusCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+test_forge_syrphus_util:
+    resource: "@TestForgeSyrphusUtilBundle/Resources/config/routing.yml"
+    prefix:   /
+
+test_forge_syrphus_security:
+    resource: "@TestForgeSyrphusSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+

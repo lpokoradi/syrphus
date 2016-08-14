@@ -1,0 +1,7 @@
+#parameters:
+#    parameter_name: value
+
+services:
+  customFieldProvider:
+    class:  TestForge\Syrphus\CustomFieldBundle\Services\CustomFieldProviderService
+    arguments: ['@doctrine.orm.entity_manager']

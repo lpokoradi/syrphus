@@ -1,0 +1,4 @@
+services:
+#    test_forge_syrphus_core.example:
+#        class: TestForge\Syrphus\CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
