@@ -128,7 +128,7 @@ class Role implements RoleInterface
      *
      * @param \TestForge\Syrphus\SecurityBundle\Entity\User $user
      *
-     * @return RoleGroup
+     * @return Role
      */
     public function addUser(User $user)
     {

@@ -24,12 +24,18 @@ class RoleUserFixture implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $roleUser = new Role();
-        $roleUser->setName(RoleRepository::ROLE_DEFAULT_NAME);
-        $roleUser->setParentRole(null);
-        $roleUser->setDescription("Default role for each user");
+        $roleDefault = new Role();
+        $roleDefault->setName(RoleRepository::ROLE_DEFAULT_NAME);
+        $roleDefault->setParentRole(null);
+        $roleDefault->setDescription("Default role for each user");
+        $manager->persist($roleDefault);
 
-        $manager->persist($roleUser);
+        $roleRoot = new Role();
+        $roleRoot->setName(RoleRepository::ROLE_ROOT_NAME);
+        $roleRoot->setParentRole($roleDefault);
+        $roleRoot->setDescription("The super admin user to access everything.");
+        $manager->persist($roleRoot);
+
         $manager->flush();
     }
 }

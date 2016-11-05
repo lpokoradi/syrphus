@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class RoleRepository extends EntityRepository
 {
     const ROLE_DEFAULT_NAME = "user";
+    const ROLE_ROOT_NAME = "root";
 
     public function getDefaultRole()
     {
