@@ -24,7 +24,7 @@ class FieldTypeOption
     /**
      * @var FieldType
      *
-     * @ORM\ManyToOne(targetEntity="FieldType")
+     * @ORM\ManyToOne(targetEntity="FieldType", inversedBy="options")
      * @ORM\JoinColumn(name="field_type_id", referencedColumnName="id")
      */
     private $fieldType;

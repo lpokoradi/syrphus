@@ -100,10 +100,14 @@ class RoleGroup
      * Remove user
      *
      * @param User $user
+     *
+     * @return RoleGroup
      */
     public function removeUser(User $user)
     {
         $this->users->removeElement($user);
+
+        return $this;
     }
 
     /**
@@ -206,10 +210,14 @@ class RoleGroup
      * Remove role
      *
      * @param \TestForge\Syrphus\SecurityBundle\Entity\Role $role
+     *
+     * @return RoleGroup
      */
     public function removeRole(Role $role)
     {
         $this->roles->removeElement($role);
+
+        return $this;
     }
 
     /**
@@ -221,7 +229,7 @@ class RoleGroup
     {
         $sqlite3 = new SQLite3(__DIR__ . '/../../../../../var/cache/data.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
         $doctrineCache = new SQLite3Cache($sqlite3, 'cache');
-        $id = 'role_group_' . $this->getUsername() . '_roles';
+        $id = 'role_group_' . $this->getName() . '_roles';
 
         if (!$doctrineCache->contains($id)) {
             $doctrineCache->save($id, array_unique($this->collectRoles()), 1800);
@@ -237,11 +245,11 @@ class RoleGroup
         $rolesArray = array();
 
         if (null != $this->parentRoleGroup) {
-            $rolesArray = array_merge($rolesArray, $this->parentRoleGroup->collectRoles());
+            $rolesArray = array_merge($rolesArray, $this->parentRoleGroup->getRoles());
         }
 
         foreach ($this->roles as $role) {
-            $rolesArray[] = $role->getRole();
+            $rolesArray[] = $role;
         }
 
         return $rolesArray;

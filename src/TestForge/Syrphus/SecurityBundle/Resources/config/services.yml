@@ -16,3 +16,7 @@ services:
     syrphus.security.interactive_logout_listener:
         class: TestForge\Syrphus\SecurityBundle\Listener\AuthenticationListener
         arguments:  ['@doctrine.orm.entity_manager']
+
+    syrphus.security.role_hierarchy:
+        class: TestForge\Syrphus\SecurityBundle\TestForgeSyrphusSecurityBundle\Services\RoleHierarchy
+        arguments:  ['@doctrine.orm.entity_manager']

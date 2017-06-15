@@ -4,7 +4,7 @@ namespace TestForge\Syrphus\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Role\RoleInterface;
+use Symfony\Component\Security\Core\Role\Role as BaseRole;
 
 /**
  * Role
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  * @ORM\Table(name="roles", uniqueConstraints={@ORM\UniqueConstraint(name="unique_parentroles_name", columns={"parent_role_id", "name"})})
  * @ORM\Entity(repositoryClass="TestForge\Syrphus\SecurityBundle\Repository\RoleRepository")
  */
-class Role implements RoleInterface
+class Role extends BaseRole
 {
     /**
      * @var int
@@ -38,12 +38,14 @@ class Role implements RoleInterface
     private $description;
 
     /**
-     * @var Role parentRole
+     * @var ArrayCollection parentRoles
      *
-     * @ORM\ManyToOne(targetEntity="TestForge\Syrphus\SecurityBundle\Entity\Role")
-     * @ORM\JoinColumn(fieldName="parent_role_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToMany(targetEntity="TestForge\Syrphus\SecurityBundle\Entity\Role")
+     * @ORM\JoinTable(name="role_parent_roles",
+     *     joinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="parent_role_id", referencedColumnName="id")})
      */
-    private $parentRole;
+    private $parentRoles;
 
     /**
      * @var ArrayCollection
@@ -58,6 +60,7 @@ class Role implements RoleInterface
      */
     public function __construct()
     {
+        $this->parentRoles = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
@@ -120,7 +123,43 @@ class Role implements RoleInterface
     public function getRole()
     {
         return "ROLE_" . mb_strtoupper($this->name);
-        // TODO: Implement getRole() method.
+    }
+
+    /**
+     * Add parent role
+     *
+     * @param \TestForge\Syrphus\SecurityBundle\Entity\Role $role
+     *
+     * @return Role
+     */
+    public function addParentRole(Role $role) {
+        $this->parentRoles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role from parent roles
+     *
+     * @param Role $role
+     *
+     * @return Role
+     */
+    public function removeParentRole(Role $role)
+    {
+        $this->users->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * Get parent roles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParentRoles()
+    {
+        return $this->parentRoles;
     }
 
     /**
@@ -141,10 +180,14 @@ class Role implements RoleInterface
      * Remove user
      *
      * @param User $user
+     *
+     * @return Role
      */
     public function removeUser(User $user)
     {
         $this->users->removeElement($user);
+
+        return $this;
     }
 
     /**
@@ -155,29 +198,5 @@ class Role implements RoleInterface
     public function getUsers()
     {
         return $this->users;
-    }
-
-    /**
-     * Set parentRole
-     *
-     * @param Role $parentRole
-     *
-     * @return Role
-     */
-    public function setParentRole(\TestForge\Syrphus\SecurityBundle\Entity\Role $parentRole = null)
-    {
-        $this->parentRole = $parentRole;
-
-        return $this;
-    }
-
-    /**
-     * Get parentRole
-     *
-     * @return Role
-     */
-    public function getParentRole()
-    {
-        return $this->parentRole;
     }
 }

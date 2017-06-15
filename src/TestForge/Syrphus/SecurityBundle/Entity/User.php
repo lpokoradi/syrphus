@@ -194,10 +194,14 @@ class User implements AdvancedUserInterface, \Serializable
      * Remove user
      *
      * @param Role $role
+     *
+     * @return User
      */
     public function removeRole(Role $role)
     {
         $this->roles->removeElement($role);
+
+        return $this;
     }
 
     /**
@@ -233,7 +237,7 @@ class User implements AdvancedUserInterface, \Serializable
         }
 
         foreach ($this->roles as $role) {
-            $rolesArray[] = $role->getRole();
+            $rolesArray[] = $role;
         }
 
         return $rolesArray;

@@ -11,7 +11,7 @@ register:
     defaults: { _controller: TestForgeSyrphusSecurityBundle:Security:register }
 
 user_list:
-    path: /user/list
+    path: admin/user/list
     defaults: { _controller: TestForgeSyrphusSecurityBundle:User:list }
 
 user_view:

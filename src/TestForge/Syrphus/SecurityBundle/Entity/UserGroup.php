@@ -261,7 +261,7 @@ class UserGroup
     {
         $sqlite3 = new SQLite3(__DIR__ . '/../../../../../var/cache/data.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
         $doctrineCache = new SQLite3Cache($sqlite3, 'cache');
-        $id = 'user_group_' . $this->getUsername() . '_roles';
+        $id = 'user_group_' . $this->getName() . '_roles';
 
         if (!$doctrineCache->contains($id)) {
             $doctrineCache->save($id, array_unique($this->collectRoles()), 1800);
@@ -277,7 +277,7 @@ class UserGroup
         $rolesArray = array();
 
         if (null != $this->parentUserGroup) {
-            $rolesArray = array_merge($rolesArray, $this->parentUserGroup->collectRoles());
+            $rolesArray = array_merge($rolesArray, $this->parentUserGroup->getRoles());
         }
 
         foreach ($this->roleGroups as $roleGroup) {
@@ -285,7 +285,7 @@ class UserGroup
         }
 
         foreach ($this->roles as $role) {
-            $rolesArray[] = $role->getRole();
+            $rolesArray[] = $role;
         }
 
         return $rolesArray;

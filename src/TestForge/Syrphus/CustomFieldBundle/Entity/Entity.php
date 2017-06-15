@@ -31,7 +31,7 @@ class Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="class", type="text", unique=true)
+     * @ORM\Column(name="class", type="string", length=255, unique=true)
      */
     private $class;
 
